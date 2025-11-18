@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <textarea cols="50" rows="10" placeholder="Tutaj wpisz tekst do analizy..." id="user-input"></textarea>
+    <br>
+    <button onclick="analyze()">Analizuj</button>
+
+    <p>liczba słów: <span id="count-words"></span></p>
+     <p>liczba znaków: <span id="count-character-no-spaces"></span></p>
+     <p>liczba zdań: <span id="count-words"></span></p>
+     <p>liczba znaków bez spacji: <span id="count-words"></span></p>
+     <p>Czas Czytania: <span id="read-time"></span></p>
+    <script>
+document.getElementById("count-words").innerText = 0
+
+
+// funkcja nie wykona się, dopóki jej nie wywołamy.
+// Możemy używać jej ile razy chcemy
+function analyze() {
+    console.log("analizuję...")
+
+    // pobierz wartość (value) z elementu o id "user-input"
+    const text = document.getElementById("user-input").value
+    // const text = "abc abfdf asfasdf afsdf sadfsd"
+    // Funkcja trim() używana jest na String.
+    // Usuwa ona białe znaki (np. spacje) z końca i początku Stringa.
+    const textTrimmed = text.trim()
+    // array - czyli tablica
+    const words = textTrimmed.split(" ")
+
+    // tablice można porównać do rzędu siedzeń w kinie - skupiamy się na pojedynczym rzędzie
+    // każdy taki rząd ma ponumerowane miejsca
+    // w programowaniu zazwyczaj takie rzędy zaczynamy liczyć od 0, a więc
+    // typowa tablica będzie wyglądać mniej więcej tak:
+    // [0, 1, 2, 3, 4] - tablica na 5 wartości (tutaj wypisane są tylko indeksy)
+    // indeksy to właśnie taki numer siedzenia.
+    // Na takim miejscu mogą znajdować się różne wartości.
+    // Tablicę można sobie wyobrazić ostatecznie w taki sposób:
+    // [0, 1, 2, 3, 4] - 5 miejsc w rzędzie, od 0 do 4
+    // [7, 4, 0, 8, 9] - 5 wartości, każda jest na jakimś miejscu
+
+    // wstawiamy do innerText długość tablicy "words".
+    // length użyte na tablicy zwraca jej długość, czyli ile posiada miejsc
+    document.getElementById("count-words").innerText = words.length
+
+    // To jest String
+   //text = "The quick brown fox jumps over the lazy dog." 
+     //Teraz zamieniamy na tablice
+    // words = text.split(" ")
+    // [0,   1,     2, 3, 4, 5, 6, 7, 8, 9]
+    // [The, quick, ]
+    const letterCounter = countLettersWithoutSpace(textTrimmed)
+
+    document.getElementById("count-character-no-spaces").innerText = letterCounter
+
+
+     const characterReadPerMinute = 200 
+     const minutes = letterCounter / characterReadPerMinute
+     console.log(minutes)
+
+     const seconds = minutes * 60
+     console.log(seconds)
+
+    document.getElementById("read-time").innerText = seconds
+}
+
+
+    </script>
+</body>
+</html>
